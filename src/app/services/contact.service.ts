@@ -2,38 +2,39 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { IContact } from './contact.type';
 
+const INITIAL_CONTACTS: IContact[] = [
+  {
+    id: 1,
+    firstName: 'Kirill',
+    lastName: 'Kirillov',
+    email: 'kirill@hotmail.com',
+    phones: [
+      {
+        phoneNumber: '+380505555555'
+      },
+      {
+        phoneNumber: '+380505555555'
+      }
+    ]
+  },
+  {
+    id: 2,
+    firstName: 'Ivan',
+    lastName: 'Ivanov',
+    email: 'ivan.ivanov@hotmail.com',
+    phones: [
+      {
+        phoneNumber: '+380505555555'
+      }
+    ]
+  }
+]
+
 @Injectable({
   providedIn: 'root'
 })
 export class ContactService {
-    private initialContacts: IContact[] = [
-      {
-        id: 1,
-        firstName: 'Kirill',
-        lastName: 'Kirillov',
-        email: 'kirill@hotmail.com',
-        phones: [
-          {
-            phoneNumber: '+380505555555'
-          },
-          {
-            phoneNumber: '+380505555555'
-          }
-        ]
-      },
-      {
-        id: 2,
-        firstName: 'Ivan',
-        lastName: 'Ivanov',
-        email: 'ivan.ivanov@hotmail.com',
-        phones: [
-          {
-            phoneNumber: '+380505555555'
-          }
-        ]
-      }
-    ]
-    private contacts$: BehaviorSubject<IContact[]> = new BehaviorSubject(this.initialContacts);
+    private contacts$: BehaviorSubject<IContact[]> = new BehaviorSubject(INITIAL_CONTACTS);
     private contact$: Subject<IContact> = new Subject();
     constructor() {
       const contacts = localStorage.getItem('contacts') ? JSON.parse(localStorage.getItem('contacts') as string) : this.contacts$.value;
